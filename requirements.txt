@@ -1,0 +1,2 @@
+bitstruct>=3.7.0
+functools32>=3.2.3

@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27701.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "warbend", "warbend.pyproj", "{1B628383-8E92-433C-B4D8-3F677A7C247E}"
+EndProject
+Global
+    GlobalSection(SolutionConfigurationPlatforms) = preSolution
+        Debug|Any CPU = Debug|Any CPU
+        Release|Any CPU = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(ProjectConfigurationPlatforms) = postSolution
+        {1B628383-8E92-433C-B4D8-3F677A7C247E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {1B628383-8E92-433C-B4D8-3F677A7C247E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(SolutionProperties) = preSolution
+        HideSolutionNode = FALSE
+    EndGlobalSection
+    GlobalSection(ExtensibilityGlobals) = postSolution
+        SolutionGuid = {409B717E-0EA4-4009-AC38-830A56A6B823}
+    EndGlobalSection
+EndGlobal

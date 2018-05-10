@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cheat",
+            "type": "pythonExperimental",
+            "request": "launch",
+            "pythonPath": "C:/Python/2.7-32/python.exe",
+            "program": "${workspaceFolder}/sample/cheat.py",
+            "args": [
+                "${env:USERPROFILE}/Documents/Mount&Blade Warband Savegames/Native/sg00.sav",
+                "${env:USERPROFILE}/Documents/Mount&Blade Warband Savegames/Native/sg08.sav",
+            ],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder};${workspaceFolder}/modules/Native/Module_system 1.171"
+            },
+            "envFile": "${workspaceFolder}/.env",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+        },
+    ]
+}
