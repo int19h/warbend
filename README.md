@@ -1,8 +1,12 @@
-# WarBend: a Mount & Blade: Warband save game editor
+# FAQ
 
-WarBend is a Python 2.7 package that lets you load M&B:Warband saves, inspect them, change them, and write them back to disk. It can also export saves as XML, and re-import it back, allowing tools such as XSLT to be used to perform batch updates.
+## What is WarBend?
+WarBend is a Python 2.7 package that lets you load Mount & Blade: Warband saves, inspect them, change them, and write them back to disk. It can also export saves as XML, and re-import it back, allowing tools such as XSLT to be used to perform batch updates.
 
-## What can it do?
+## I just want to edit a save! Where's my GUI?
+You should probably take a look at [WarBender](https://github.com/int19h/WarBender).
+
+## What can WarBend do?
 
 It gives full access to *all* the data stored in a savegame file - every single byte of it. In addition, it provides various convenience features to make that data easy to explore and change programmatically as needed. Here's a simple example to demonstrate what is possible:
 ```py
@@ -39,9 +43,9 @@ save(game, 'sg01.sav')
 
 Look at [samples](samples/) for more.
 
-## What does it need?
+## What does it need to run?
 
-* [M&B:Warband module system](https://www.taleworlds.com/en/Games/Warband/Download)
+* [Mount & Blade: Warband module system](https://www.taleworlds.com/en/Games/Warband/Download)
 
 * [Python 2.7](http://python.org)
 
@@ -50,7 +54,9 @@ Look at [samples](samples/) for more.
   pip install -r requirements.txt
   ```
 
-## How to use it?
+## How to run it?
+
+Since it's a library, it cannot be run directly. However, there are some sample scripts provided to get you started. Here's a step-by-step guide:
 
 1. Back up all your savegames, in case something goes wrong. **Do not skip this step!**
 
