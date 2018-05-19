@@ -2,9 +2,9 @@
 
 :: Uncomment the below statements, and set the value according to where Python
 :: is installed on your system, to override automatic detection from registry.
-set PYTHONDIR=C:\Python\PyPy-2.7\
-set PYTHONEXE=pypy.exe
-set PYTHONFLAGS=
+:: set PYTHONDIR=C:\Python\PyPy-2.7\
+:: set PYTHONEXE=pypy.exe
+:: set PYTHONFLAGS=
 
 :: set PYTHONDIR=C:\Program Files (x86)\IronPython 2.7\
 :: set PYTHONEXE=ipy64.exe
