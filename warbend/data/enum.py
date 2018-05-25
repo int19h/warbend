@@ -57,7 +57,7 @@ class Flags(object):
     def __repr__(self):
         s = self
         flags = {flag: name for flag, name in self.names.iteritems()
-                 if self & flag}
+                 if (self & flag) == flag}
         if flags:
             x = reduce(operator.or_, flags.iterkeys(), 0)
             if x == self:

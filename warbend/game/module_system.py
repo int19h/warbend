@@ -27,6 +27,7 @@ import ID_troops
 import module_skills
 import module_constants
 import module_items
+import module_parties
 import module_troops
 
 
