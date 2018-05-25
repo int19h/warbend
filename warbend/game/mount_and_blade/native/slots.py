@@ -1,6 +1,3 @@
-# Derived from MnBSaveGameEditor's SaveGameStructure.cfg, which is in turn
-# derived from the M&B modding wiki: http://mbmodwiki.ollclan.eu/Savegame
-
 from __future__ import absolute_import, division, print_function
 
 from ....data import *  # pylint: disable=W0614

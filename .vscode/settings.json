@@ -2,6 +2,7 @@
     //"python.linting.pylintEnabled": false,
     "files.exclude": {
         "**/*.pyo": true,
+        "**/*.pyc": true,
         "output/": true
     },
     "python.pythonPath": "C:\\Python\\2.7-64\\python.exe",

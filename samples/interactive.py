@@ -9,7 +9,7 @@ warbend.mode.is_interactive = True
 
 import warbend
 from warbend.game.module_system import *  # pylint: disable=W0614
-from warbend.game.mount_and_blade import *  # pylint: disable=W0614
+from warbend.game.mount_and_blade.native import *  # pylint: disable=W0614
 
 
 try:
