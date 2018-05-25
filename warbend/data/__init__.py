@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 
 # Commonly used
 from .array import array, bit_array
-from .enum import enum
+from .enum import enum, flags
 from .errors import ValidationError
 from .mutable import parent, path, root, selector, transaction
 from .record import record

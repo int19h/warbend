@@ -218,6 +218,8 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(num_slots=int32)
         self(slots=slots.item_kind_slots(self))
 
+    troop_flags = flags(uint64, varnames(module_troops, 'tf_'))
+
     @record
     def troop(self):
         self(num_slots=int32)
@@ -229,7 +231,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(skills=bit_array(4, 48, singular='skill',
                               keys=varnames(module_skills, 'skl_')))
         self(notes=array(note, 16))
-        self(flags=uint64)
+        self(flags=troop_flags)
         self(site_id_and_entry_no=int32)
         self(skill_points=int32)
         self(attribute_points=int32)

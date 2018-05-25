@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
+from numbers import Integral
+import operator
 from os.path import commonprefix
 
 from ..util.frozendict import frozendict
@@ -37,7 +39,7 @@ def enum(t, names):
 
 @memoize
 def _enum(t, names):
-    assert isinstance(t, type), t
+    assert issubclass(t, Integral), t
     assert len(names) > 0
 
     class EnumT(Enum, t):
@@ -46,3 +48,35 @@ def _enum(t, names):
     EnumT.base_type = t
     EnumT.names = simplify_names(names)
     return EnumT
+
+
+class Flags(object):
+    names = {}
+    base_type = type(None)
+
+    def __repr__(self):
+        s = self
+        flags = {flag: name for flag, name in self.names.iteritems()
+                 if self & flag}
+        if flags:
+            x = reduce(operator.or_, flags.iterkeys(), 0)
+            if x == self:
+                s = '|'.join(flags.itervalues())
+        return "(%s)" % s
+
+
+def flags(t, names):
+    return _flags(t, frozendict(names))
+
+
+@memoize
+def _flags(t, names):
+    assert issubclass(t, Integral), t
+    assert len(names) > 0
+
+    class FlagsT(Flags, t):
+        pass
+    FlagsT.__name__ = 'flags(%s)' % t.__name__
+    FlagsT.base_type = t
+    FlagsT.names = simplify_names(names)
+    return FlagsT
