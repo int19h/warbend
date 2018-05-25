@@ -103,7 +103,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
 
     particle_system_id = enum(int32, varnames(ID_particle_systems, 'psys_'))
 
-    party_flags = flags(uint64, varnames(module_parties, 'pf_'))
+    #party_flags = flags(uint64, varnames(module_parties, 'pf_'))
 
     party_behavior = enum(int32, varnames(module_parties, 'ai_bhvr_'))
 
@@ -117,7 +117,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(id=int32)
         self(party_id=pstr)
         self(name=pstr)
-        self(flags=party_flags)
+        self(flags=uint64)
         self(menu_id=int32)
         self(party_template_id=int32)
         self(faction_id=int32)
