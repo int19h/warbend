@@ -50,7 +50,7 @@ def _enum(t, names):
     return EnumT
 
 
-class Flags(object):
+class Flags(Enum):
     names = {}
     base_type = type(None)
 
