@@ -14,10 +14,20 @@ from .module_system import module_constants
 @memoize
 def varnames(module, *prefixes, **kwargs):
     frozen = kwargs.pop('frozen', True)
+    exclude_prefixes = kwargs.pop('exclude_prefixes', ())
     assert not kwargs
+
+    def excluded(name):
+        for prefix in exclude_prefixes:
+            if name.startswith(prefix):
+                return True
+        return False
+
     names = []
     for prefix in prefixes:
-        names += [name for name in vars(module) if name.startswith(prefix)]
+        names += [name for name in vars(module)
+                  if name.startswith(prefix) and not excluded(name)]
+
     res = {getattr(module, name): name for name in names}
     if frozen:
         res = frozendict(res)
@@ -31,7 +41,9 @@ def slot_enum(*prefixes):
 
 def slot_array(*prefixes, **kwargs):
     extra_keys = kwargs.pop('extra_keys', {})
-    keys = varnames(module_constants, *prefixes, frozen=False)
+    exclude_prefixes = kwargs.pop('exclude_prefixes', ())
+    keys = varnames(module_constants, *prefixes, frozen=False,
+                    exclude_prefixes=exclude_prefixes)
     keys.update(extra_keys)
     keys = frozendict(keys)
 

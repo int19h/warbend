@@ -82,7 +82,7 @@ with transaction(game):
     for troop in game.troops:
         try:
             troop.slots['troop_player_relation'] = 100
-        except IndexError:
+        except (IndexError, KeyError):
             pass
 
     # All lords love each other.

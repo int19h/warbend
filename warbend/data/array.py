@@ -103,7 +103,7 @@ class Array(Mutable, list):
             try:
                 index, = [k for k, v in t.keys.iteritems() if v == index]
             except ValueError:
-                raise KeyError()
+                raise KeyError(index)
             self[index] = value
             return
         super(Array, self).__setitem__(index, value)
