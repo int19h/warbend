@@ -61,6 +61,9 @@ class bool8(uint8):
     def __repr__(self):
         return repr(bool(self))
 
+    def __str__(self):
+        return repr(self)
+
 
 @ubits(32)
 class bool32(uint32):
@@ -68,6 +71,9 @@ class bool32(uint32):
 
     def __repr__(self):
         return repr(bool(self))
+
+    def __str__(self):
+        return repr(self)
 
 
 class float32(float):
