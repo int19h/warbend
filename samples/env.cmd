@@ -1,5 +1,6 @@
 @echo off
 
+
 :: Uncomment the below statements, and set the value according to where Python
 :: is installed on your system, to override automatic detection from registry.
 :: set PYTHONDIR=C:\Python\PyPy-2.7\
@@ -9,7 +10,27 @@
 :: set PYTHONDIR=C:\Program Files (x86)\IronPython 2.7\
 :: set PYTHONEXE=ipy64.exe
 
-:: If not set above, find it in registry. Look for 64-bit first.
+
+
+if exist "%~dp0..\..\WarBender.sln" set WARBENDER=%~dp0..\..\
+
+:: If not set above, try to use PyPy from WarBender
+if not "%WARBENDER%" == "" (
+    if "%PYTHONDIR%" == "" (
+        if exist "%WARBENDER%bin\Debug\pypy2-v6.0.0-win32\pypy.exe" (
+            set PYTHONDIR=%WARBENDER%bin\Debug\pypy2-v6.0.0-win32\
+            set PYTHONEXE=pypy.exe
+        )
+    )
+    if "%PYTHONDIR%" == "" (
+        if exist "%WARBENDER%bin\Release\pypy2-v6.0.0-win32\pypy.exe" (
+            set PYTHONDIR=%WARBENDER%bin\Debug\pypy2-v6.0.0-win32\
+            set PYTHONEXE=pypy.exe
+        )
+    )
+)
+
+:: If there's no PyPy, find CPython in registry. Look for 64-bit first.
 if "%PYTHONDIR%" == "" (
     for /f "tokens=2*" %%a in ('reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Python\PythonCore\2.7\InstallPath"  2^>^&1^|find "REG_"') do set PYTHONDIR=%%b
 )
@@ -25,7 +46,12 @@ echo Using Python at %PYTHONDIR%%PYTHONEXE%
 if errorlevel 1 goto wrong_python
 
 set PYTHON="%PYTHONDIR%%PYTHONEXE%" %PYTHONFLAGS%
-set PYTHONPATH=%~dp0..;%~dp0..\lib;%~dp0..\modules\Native\Module_system 1.171
+set PYTHONPATH=%~dp0..
+if "%WARBENDER%" == "" (
+    set PYTHONPATH=%PYTHONPATH%;%~dp0..\modules\Native\Module_system 1.171
+) else (
+    set PYTHONPATH=%PYTHONPATH%;%WARBENDER%\requirements;%WARBENDER%modsys\Native\Module_system 1.171
+)
 set IRONPYTHONPATH=%PYTHONPATH%
 
 :: Set this to 1 to generate debugging output as data is read and written.

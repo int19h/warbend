@@ -48,7 +48,7 @@ class Array(Mutable, list):
             list.__setslice__(self, 0, sys.maxint, self._lkg_items)
             del self._lkg_items[:]
 
-    def _validate(self):
+    def _validate(self, context):
         t = type(self)
         n = len(self)
         if n != t.size:

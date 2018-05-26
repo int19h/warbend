@@ -99,7 +99,7 @@ class Record(Mutable):
         finally:
             self._fieldfunc = None
 
-    def _validate(self):
+    def _validate(self, context):
         try:
             assert not self.__dict__, repr(self)
         except AttributeError:

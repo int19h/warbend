@@ -7,6 +7,7 @@ from struct import Struct
 
 from ..data.array import Array, BitArray, is_array, is_bit_array
 from ..data.context import Context
+from ..data.id_ref import IdRef
 from ..data.mutable import path
 from ..data.record import Record
 from ..data.types import bool8, bool32, float32, int32, int64, pstr, uint8, uint16, uint32, uint64

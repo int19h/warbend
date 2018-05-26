@@ -22,6 +22,8 @@ def simplify_names(names):
 
 
 class Enum(object):
+    __slots__ = []
+
     names = {}
     base_type = type(None)
 
@@ -43,7 +45,8 @@ def _enum(t, names):
     assert len(names) > 0
 
     class EnumT(Enum, t):
-        pass
+        __slots__ = []
+
     EnumT.__name__ = 'enum(%s)' % t.__name__
     EnumT.base_type = t
     EnumT.names = simplify_names(names)
@@ -55,8 +58,9 @@ class Flags(Enum):
     base_type = type(None)
 
     def __repr__(self):
+        t = type(self)
         s = self
-        fs = {flag: name for flag, name in self.names.iteritems()
+        fs = {flag: name for flag, name in t.names.iteritems()
               if (self & flag) == flag}
         if fs:
             if 0 in fs:
@@ -80,7 +84,8 @@ def _flags(t, names):
     assert len(names) > 0
 
     class FlagsT(Flags, t):
-        pass
+        __slots__ = []
+
     FlagsT.__name__ = 'flags(%s)' % t.__name__
     FlagsT.base_type = t
     FlagsT.names = simplify_names(names)

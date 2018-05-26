@@ -43,10 +43,12 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(tableau_material_id=tableau_material_id)
         self(available=bool8)
 
+    troop_id = id_ref(int32, lambda game: game.troops)
+
     @record
     def quest(self):
         self(progression=int32)
-        self(giver_troop_id=int32)
+        self(giver_troop_id=troop_id)
         self(number=int32)
         self(start_date=float32)
         self(title=pstr)
@@ -96,7 +98,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
 
     @record
     def party_stack(self):
-        self(troop_id=int32)
+        self(troop_id=troop_id)
         self(num_troops=int32)
         self(num_wounded_troops=int32)
         self(flags=int32)
@@ -106,6 +108,12 @@ def records(slots, dont_load_regular_troop_inventories=True):
     party_flags = uint64 #flags(uint64, varnames(header_parties, 'pf_'))
 
     party_behavior = enum(int32, varnames(header_parties, 'ai_bhvr_'))
+
+    party_template_id = id_ref(int32, lambda game: game.party_templates)
+
+    faction_id = id_ref(int32, lambda game: game.factions)
+
+    party_id = id_ref(int32, lambda game: game.parties)
 
     @record
     def party(self):
@@ -119,8 +127,8 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(name=pstr)
         self(flags=party_flags)
         self(menu_id=int32)
-        self(party_template_id=int32)
-        self(faction_id=int32)
+        self(party_template_id=party_template_id)
+        self(faction_id=faction_id)
         self(personality=int32)
         self(default_behavior=party_behavior)
         self(current_behavior=party_behavior)
@@ -156,13 +164,15 @@ def records(slots, dont_load_regular_troop_inventories=True):
             self(extra_map_icon_up_down_frequency=float32)
             self(extra_map_icon_rotate_frequency=float32)
             self(extra_map_icon_fade_frequency=float32)
-        self(attached_to_party_id=int32)
+        self(attached_to_party_id=party_id)
         if game.header.game_version > 1161:
             self(_2=int32)
         self(is_attached=bool8)
         self(num_attached_party_ids=int32)
         self(attached_party_ids=array(
-            int32, self.num_attached_party_ids, singular='party_id'))
+            party_id,
+            self.num_attached_party_ids,
+            singular='party_id'))
         self(num_particle_system_ids=int32)
         self(particle_system_ids=array(
             particle_system_id,
@@ -203,16 +213,18 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(land_position_y=float32)
         self(_1=float32)
         self(_2=float32)
-        self(attacker_party_id=int32)
-        self(defender_party_id=int32)
+        self(attacker_party_id=party_id)
+        self(defender_party_id=party_id)
         self(battle_simulation_timer=int64)
         self(next_battle_simulation=float32)
 
     modifier = enum(uint8, varnames(header_item_modifiers, 'imod_'))
 
+    item_kind_id = id_ref(int32, lambda game: game.item_kinds)
+
     @record
     def item(self):
-        self(item_kind_id=int32)
+        self(item_kind_id=item_kind_id)
         self(hit_points=uint16)
         self(_1=uint8)
         self(modifier=modifier)
@@ -248,7 +260,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
             self(gold=uint32)
             self(experience=int32)
             self(health=float32)
-            self(faction_id=int32)
+            self(faction_id=faction_id)
             self(inventory_items=array(item, 96))
             self(equipped_items=array(item, 10, keys=varnames(module_items, 'ek_')))
             self(face_keys=array(uint64, 4, singular='face_key'))
@@ -345,7 +357,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
         ))
         self(_6=array(int32, 42))
         self(num_item_kinds=int32)
-        self(item_kind=array(
+        self(item_kinds=array(
             item_kind, self.num_item_kinds,
             keys=varnames(ID_items, 'itm_'),
             groups=groups_from(ID_items),

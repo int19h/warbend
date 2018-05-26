@@ -21,13 +21,13 @@ def no_coerce_warnings():
     return NoCoerceWarningsContextManager()
 
 
-def validate(value):
+def validate(value, context):
     try:
         validate = value._validate
     except AttributeError:
         pass
     else:
-        validate()
+        validate(context)
 
 
 def coerce(parent, selector, value, t):
@@ -35,7 +35,7 @@ def coerce(parent, selector, value, t):
     from .record import Record
     if type(value) is t:
         if getattr(value, '_dirty', True):
-            validate(value)
+            validate(value, parent._context)
         return value
     initial_value = value
     errmsg = None
@@ -50,12 +50,12 @@ def coerce(parent, selector, value, t):
                 except (TypeError, ValueError):
                     value = None
                 else:
-                    value._validate()
+                    value._validate(parent._context)
                     return value
         else:
             try:
                 value = t(value)
-                validate(value)
+                validate(value, parent._context)
             except (TypeError, ValueError) as ex:
                 value = None
                 errmsg = str(ex)

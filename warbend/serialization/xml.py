@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
+from functools import partial
 from io import BufferedReader, BufferedWriter
 import struct
 
@@ -46,6 +47,10 @@ def writes(t):
         return f
     return decorator
 
+
+def read_as(t):
+    return partial(t._xml_read, t)
+    
 
 def write_as(t):
     return t._xml_write
@@ -98,13 +103,13 @@ def _(t, reader, parent, selector, options):
     raw_s = reader.attr('_r')
     if raw_s:
         raw = long(raw_s, 16)
-        value_via_raw = float32_struct.unpack(uint32_struct.pack(raw))
+        value_via_raw, = float32_struct.unpack(uint32_struct.pack(raw))
         if str(value) != str(value_via_raw):
             raise ValueError('floating point mismatch between _="%s" (%s) and _raw="%s" (%s)' %
                              (s, value, raw_s, value_via_raw))
         value = value_via_raw
     reader.next().expect(END_ELEMENT)
-    return value
+    return t(value)
 
 
 @writes(float32)

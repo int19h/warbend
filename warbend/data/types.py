@@ -10,7 +10,7 @@ def fixed_width_int(n, signed):
         max = (2**n) - 1
 
     def decorate(cls):
-        def validate(self):
+        def validate(self, context):
             if not (min <= self <= max):
                 raise ValueError('{} is out of range for {}'.format(self, type(self).__name__))
         cls._validate = validate
@@ -54,26 +54,24 @@ class uint64(long):
     __slots__ = []
 
 
-@ubits(8)
-class bool8(uint8):
+class Bool(object):
     __slots__ = []
 
     def __repr__(self):
         return repr(bool(self))
 
     def __str__(self):
-        return repr(self)
+        return str(long(self))
+
+
+@ubits(8)
+class bool8(uint8, Bool):
+    __slots__ = []
 
 
 @ubits(32)
-class bool32(uint32):
+class bool32(uint32, Bool):
     __slots__ = []
-
-    def __repr__(self):
-        return repr(bool(self))
-
-    def __str__(self):
-        return repr(self)
 
 
 class float32(float):

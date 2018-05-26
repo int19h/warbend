@@ -77,7 +77,7 @@ class Transaction(object):
                     with ProgressBar('validate', len(need_validation)) as progress:
                         for obj in need_validation.itervalues():
                             try:
-                                obj._validate()
+                                obj._validate(context)
                             except:
                                 if log_validation:
                                     eprintf('error!\n')
@@ -88,7 +88,7 @@ class Transaction(object):
                         eprintf(' ... ')
                     for obj in need_validation.itervalues():
                         try:
-                            obj._validate()
+                            obj._validate(context)
                         except:
                             if log_validation:
                                 eprintf('error!\n')

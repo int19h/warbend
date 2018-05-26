@@ -5,9 +5,9 @@ from .transaction import Transaction
 
 
 class Context(object):
-    __slots__ = ['source', 'mutable', 'observed', 'transaction']
+    __slots__ = ['source', 'root', 'mutable', 'observed', 'transaction']
 
-    def __init__(self, root=None):
+    def __init__(self):
         self.source = None
         self.mutable = {}
         self.observed = []

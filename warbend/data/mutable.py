@@ -21,7 +21,9 @@ class Mutable(object):
         selector = kwargs.pop('selector', type(self).__name__)
         context = kwargs.pop('context', None)
         assert (parent is None) ^ (context is None)
-        if parent is not None:
+        if parent is None:
+            context.root = self
+        else:
             assert context is None, path(parent, selector)
             assert is_mutable(parent)
             context = parent._context
@@ -69,7 +71,7 @@ class Mutable(object):
     def _prepare_for_changes(self):
         raise NotImplementedError()
 
-    def _validate(self):
+    def _validate(self, context):
         raise NotImplementedError()
 
     def _invalid(self, because, *args):
