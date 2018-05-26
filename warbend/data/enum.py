@@ -56,12 +56,17 @@ class Flags(Enum):
 
     def __repr__(self):
         s = self
-        flags = {flag: name for flag, name in self.names.iteritems()
-                 if (self & flag) == flag}
-        if flags:
-            x = reduce(operator.or_, flags.iterkeys(), 0)
+        fs = {flag: name for flag, name in self.names.iteritems()
+              if (self & flag) == flag}
+        if fs:
+            if 0 in fs:
+                if self == 0:
+                    fs = {0: fs[0]}
+                else:
+                    del fs[0]
+            x = reduce(operator.or_, fs.iterkeys(), 0)
             if x == self:
-                s = '|'.join(flags.itervalues())
+                s = '|'.join(fs.itervalues())
         return "(%s)" % s
 
 
