@@ -12,6 +12,7 @@ class IdRef(object):
     __slots__ = []
 
     base_type = type(None)
+    checked = True
     target_func = staticmethod(lambda root: Array())
 
     def _validate(self, context):
@@ -23,7 +24,7 @@ class IdRef(object):
             validate(self, context)
 
         self.target = target = self.target_func(context.root)
-        if self != -1 and not (0 <= self < len(target)):
+        if self.checked and self != -1 and not (0 <= self < len(target)):
             raise ValueError('{} is outside of valid range ({}:{}) for {}'.format(
                 self, 0, len(target), type(self).__name__))
     
@@ -42,7 +43,7 @@ class IdRef(object):
         return '{}[{!r}]'.format(path, sel)
 
 
-def id_ref(t, target_func):
+def id_ref(t, target_func, checked=True):
     assert issubclass(t, Integral), t
     assert callable(target_func), target_func
 
@@ -51,5 +52,6 @@ def id_ref(t, target_func):
 
     IdRefT.__name__ = 'idref(%s)' % t.__name__
     IdRefT.base_type = t
+    IdRefT.checked = checked
     IdRefT.target_func = staticmethod(target_func)
     return IdRefT

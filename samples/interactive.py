@@ -4,6 +4,8 @@ import locale
 locale.setlocale(locale.LC_ALL, '')
 del locale
 
+from os import chdir
+
 import warbend.mode
 warbend.mode.is_interactive = True
 

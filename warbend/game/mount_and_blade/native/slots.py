@@ -24,13 +24,15 @@ class Slots(object):
 
     troop_id = id_ref(int64, lambda game: game.troops)
 
-    party_id = id_ref(int64, lambda game: game.parties)
-
     party_template_id = id_ref(int64, lambda game: game.party_templates)
 
     item_kind_id = id_ref(int64, lambda game: game.item_kinds)
 
     quest_id = id_ref(int64, lambda game: game.quests)
+
+    # Parties can be created and destroyed dynamically, so it's possible
+    # for a party_id to refer to a party that no longer exists.
+    party_id = id_ref(int64, lambda game: game.parties, checked=False)
 
     quest_slots = slot_array(
         'slot_quest_',
@@ -119,7 +121,7 @@ class Slots(object):
             c.slot_center_tavern_minstrel: troop_id,
             c.slot_village_bound_center: party_id,
             c.slot_village_market_town: party_id,
-            #c.slot_village_farmer_party: party_id,
+            c.slot_village_farmer_party: party_id,
             c.slot_party_home_center: party_id,
             c.slot_party_last_traded_center: party_id,
             c.slot_center_faction_when_oath_renounced: faction_id,
@@ -205,13 +207,21 @@ class Slots(object):
         ID_troops.trp_banner_background_color_array: int64,
         ID_troops.trp_log_array_entry_type: slot_enum('logent_'),
         ID_troops.trp_log_array_entry_time: int64,
-        ID_troops.trp_log_array_actor: troop_id,
+        ID_troops.trp_log_array_actor: int64,
         ID_troops.trp_log_array_center_object: party_id,
         ID_troops.trp_log_array_center_object_lord: troop_id,
         ID_troops.trp_log_array_center_object_faction: faction_id,
         ID_troops.trp_log_array_troop_object: troop_id,
         ID_troops.trp_log_array_troop_object_faction: faction_id,
         ID_troops.trp_log_array_faction_object: faction_id,
+        ID_troops.trp_temp_array_a: int64,
+        ID_troops.trp_temp_array_b: int64,
+        ID_troops.trp_temp_array_c: int64,
+        ID_troops.trp_stack_selection_amounts: int64,
+        ID_troops.trp_stack_selection_ids: int64,
+        ID_troops.trp_notification_menu_types: int64,
+        ID_troops.trp_notification_menu_var1: int64,
+        ID_troops.trp_notification_menu_var2: int64,
     }
 
     @staticmethod
@@ -223,4 +233,3 @@ class Slots(object):
             return Slots.real_troop_slots(troop)
         else:
             return array(t, troop.num_slots)
-

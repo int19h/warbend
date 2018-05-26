@@ -116,7 +116,9 @@ def records(slots, dont_load_regular_troop_inventories=True):
 
     faction_id = id_ref(int32, lambda game: game.factions)
 
-    party_id = id_ref(int32, lambda game: game.parties)
+    # Parties can be created and destroyed dynamically, so it's possible
+    # for a party_id to refer to a party that no longer exists.
+    party_id = id_ref(int32, lambda game: game.parties, checked=False)
 
     @record
     def party(self):

@@ -35,7 +35,11 @@ def coerce(parent, selector, value, t):
     from .record import Record
     if type(value) is t:
         if getattr(value, '_dirty', True):
-            validate(value, parent._context)
+            try:
+                validate(value, parent._context)
+            except (TypeError, ValueError) as ex:
+                from .mutable import path
+                raise ValidationError(path(parent, selector), str(ex))
         return value
     initial_value = value
     errmsg = None
