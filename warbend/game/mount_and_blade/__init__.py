@@ -72,7 +72,10 @@ def records(slots, dont_load_regular_troop_inventories=True):
         game = root(self)
         self(num_slots=int32)
         self(slots=slots.faction_slots(self))
-        self(relations=array(float32, game.num_factions, singular='relation'))
+        self(relations=array(
+            float32, game.num_factions,
+            singular='relation',
+            keys=varnames(ID_factions, 'fac_')))
         self(name=pstr)
         self(renamed=bool8)
         self(color=uint32)
