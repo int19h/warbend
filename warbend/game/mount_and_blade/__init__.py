@@ -103,9 +103,9 @@ def records(slots, dont_load_regular_troop_inventories=True):
 
     particle_system_id = enum(int32, varnames(ID_particle_systems, 'psys_'))
 
-    #party_flags = flags(uint64, varnames(module_parties, 'pf_'))
+    party_flags = uint64 #flags(uint64, varnames(header_parties, 'pf_'))
 
-    party_behavior = enum(int32, varnames(module_parties, 'ai_bhvr_'))
+    party_behavior = enum(int32, varnames(header_parties, 'ai_bhvr_'))
 
     @record
     def party(self):
@@ -117,7 +117,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(id=int32)
         self(party_id=pstr)
         self(name=pstr)
-        self(flags=uint64)
+        self(flags=party_flags)
         self(menu_id=int32)
         self(party_template_id=int32)
         self(faction_id=int32)
@@ -208,7 +208,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(battle_simulation_timer=int64)
         self(next_battle_simulation=float32)
 
-    modifier = enum(uint8, varnames(module_items, 'imod_'))
+    modifier = enum(uint8, varnames(header_item_modifiers, 'imod_'))
 
     @record
     def item(self):
@@ -222,7 +222,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(num_slots=int32)
         self(slots=slots.item_kind_slots(self))
 
-    troop_flags = flags(uint64, varnames(module_troops, 'tf_'))
+    troop_flags = flags(uint64, varnames(header_troops, 'tf_'))
 
     @record
     def troop(self):

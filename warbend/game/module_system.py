@@ -14,6 +14,11 @@ except ImportError:
     sys.exit(1)
 
 # pylint: disable=E0401
+import header_skills
+import header_item_modifiers
+import header_items
+import header_parties
+import header_troops
 import ID_factions
 import ID_info_pages
 import ID_items
