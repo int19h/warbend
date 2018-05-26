@@ -158,6 +158,7 @@ class Slots(object):
         types={
             c.slot_item_primary_raw_material: item_kind_id,
             c.slot_item_secondary_raw_material: item_kind_id,
+            c.slot_item_is_raw_material_only_for: item_kind_id,
         })
 
     real_troop_slots = slot_array(
