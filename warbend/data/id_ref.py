@@ -36,10 +36,9 @@ class IdRef(object):
         else:
             assert is_array(target), target
             path = target._path
-            if sel == -1:
-                sel = None
-            else:
-                sel = type(target).keys.get(sel, sel)
+            if not (0 <= sel < len(target)):
+                return repr(sel)
+            sel = type(target).keys.get(sel, sel)
         return '{}[{!r}]'.format(path, sel)
 
 

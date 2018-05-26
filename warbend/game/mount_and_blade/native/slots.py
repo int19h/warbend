@@ -20,15 +20,15 @@ def relation_slot_names():
 
 
 class Slots(object):
-    faction_id = id_ref(int64, lambda game: game.factions)
+    faction_id = id_ref(int64, lambda game: game.factions, checked=False)
 
-    troop_id = id_ref(int64, lambda game: game.troops)
+    troop_id = id_ref(int64, lambda game: game.troops, checked=False)
 
-    party_template_id = id_ref(int64, lambda game: game.party_templates)
+    party_template_id = id_ref(int64, lambda game: game.party_templates, checked=False)
 
-    item_kind_id = id_ref(int64, lambda game: game.item_kinds)
+    item_kind_id = id_ref(int64, lambda game: game.item_kinds, checked=False)
 
-    quest_id = id_ref(int64, lambda game: game.quests)
+    quest_id = id_ref(int64, lambda game: game.quests, checked=False)
 
     # Parties can be created and destroyed dynamically, so it's possible
     # for a party_id to refer to a party that no longer exists.
