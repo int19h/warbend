@@ -13,4 +13,5 @@ from .types import (
     int32, int64,
     float32,
     bool8, bool32,
-    pstr)
+    pstr,
+    color)

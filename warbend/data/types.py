@@ -83,3 +83,8 @@ class float32(float):
 
 class pstr(str):
     __slots__ = []
+
+
+class color(uint32):
+    def __repr__(self):
+        return "#{:08X}".format(self)

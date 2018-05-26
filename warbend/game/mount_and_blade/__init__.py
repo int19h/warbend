@@ -78,7 +78,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
             keys=varnames(ID_factions, 'fac_')))
         self(name=pstr)
         self(renamed=bool8)
-        self(color=uint32)
+        self(color=color)
         self(_1=int32)
         self(notes=array(note, 16))
 
