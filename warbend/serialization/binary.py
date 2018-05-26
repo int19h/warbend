@@ -145,6 +145,7 @@ def _(t, reader, parent, selector, options):
             log_data and log_data('\n[%s] ' % i)
             item = read(item_type, reader, array, i, options)
             list.append(array, item)
+        array._mark_all_as_dirty()
     log_data and log_data(DEDENT, '\n}')
     return array
 

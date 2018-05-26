@@ -148,6 +148,7 @@ def _(t, reader, parent, selector, options):
         list.append(array, item)
     reader.next().expect(END_ELEMENT)
     log_data and log_data(DEDENT, '\n}')
+    array._mark_all_as_dirty()
     return array
 
 
