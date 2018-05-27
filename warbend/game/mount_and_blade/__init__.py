@@ -57,10 +57,12 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(notes=array(note, 16))
         self(num_slots=int32)
         self(slots=slots.quest_slots(self))
+        return module_quests.quests[self][1]
 
     @record
     def info_page(self):
         self(notes=array(note, 16))
+        return module_info_pages.info_pages[self][1]
 
     @record
     def site(self):
@@ -81,6 +83,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(color=color)
         self(_1=int32)
         self(notes=array(note, 16))
+        return module_factions.factions[self][1]
 
     @record
     def map_track(self):
@@ -98,6 +101,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(num_parties_destroyed_by_player=int32)
         self(num_slots=int32)
         self(slots=slots.party_template_slots(self))
+        return module_party_templates.party_templates[self][1]
 
     @record
     def party_stack(self):
@@ -187,6 +191,10 @@ def records(slots, dont_load_regular_troop_inventories=True):
         self(notes=array(note, 16))
         self(num_slots=int32)
         self(slots=slots.party_slots(self))
+        try:
+            return module_parties.parties[self][1]
+        except IndexError:
+            pass
 
     @record
     def player_party_stack(self):
@@ -238,6 +246,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
     def item_kind(self):
         self(num_slots=int32)
         self(slots=slots.item_kind_slots(self))
+        return module_items.items[self][1]
 
     troop_flags = flags(uint64, varnames(header_troops, 'tf_'))
 
@@ -274,6 +283,7 @@ def records(slots, dont_load_regular_troop_inventories=True):
                 self(name=pstr)
                 self(name_plural=pstr)
         self(class_no=int32)
+        return module_troops.troops[self][1]
 
     @record
     def game(self):

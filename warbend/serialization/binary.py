@@ -212,7 +212,7 @@ def _(t, reader, parent, selector, options):
     context.begin_observation()
 
     @record._iter_fields
-    def _(fname, ftype):
+    def name(fname, ftype):
         observed.extend(context.end_observation())
         log_data and log_data('\n', fname, ' : ', ftype.__name__, ' = ')
         fvalue = read(ftype, reader, record, fname, options)
@@ -227,6 +227,8 @@ def _(t, reader, parent, selector, options):
     observed = list({id(obj): obj for obj in observed}.itervalues())
     record._has_observed(observed)
     log_data and log_data(DEDENT, '\n} ', t.__name__)
+
+    record._name = name
     return record
 
 

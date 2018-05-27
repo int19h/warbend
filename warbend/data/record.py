@@ -8,7 +8,7 @@ from .mutable import Mutable, is_mutable, mutating, path
 
 class Record(Mutable):
     __slots__ = Mutable._slots_required + \
-        ['_fields', '_lkg_fields', '_fieldfunc']
+        ['_fields', '_lkg_fields', '_fieldfunc', '_name']
 
     _record_marker = ()
 
@@ -95,7 +95,7 @@ class Record(Mutable):
         f = type(self).field_generator
         try:
             self._fieldfunc = fieldfunc
-            f(self)
+            return f(self)
         finally:
             self._fieldfunc = None
 

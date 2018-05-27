@@ -29,10 +29,14 @@ import ID_quests
 import ID_scenes
 import ID_tableau_materials
 import ID_troops
-import module_skills
 import module_constants
+import module_factions
+import module_info_pages
 import module_items
 import module_parties
+import module_party_templates
+import module_quests
+import module_skills
 import module_troops
 
 
